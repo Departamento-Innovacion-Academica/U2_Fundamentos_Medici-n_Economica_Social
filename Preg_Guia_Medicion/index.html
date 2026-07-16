@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medición Económica y Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f2f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 900px;
+            max-width: 95%;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 48px 44px 44px;
+            box-shadow: 0 8px 40px rgba(0, 16, 72, 0.10);
+        }
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .titulo h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #001048;
+            letter-spacing: -0.5px;
+        }
+
+        .titulo .line {
+            width: 50px;
+            height: 3px;
+            background: #3348A4;
+            margin: 8px auto 0;
+            border-radius: 10px;
+        }
+
+        /* ============================================ */
+        /* ESTRUCTURA ORIGINAL CON REVEAL */
+        /* ============================================ */
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .info-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .info-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        /* Estados de revelado */
+        .reveal {
+            opacity: 0;
+        }
+
+        .left {
+            transform: translateX(-120px);
+        }
+
+        .right {
+            transform: translateX(120px);
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateX(0);
+            transition: 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+
+        /* Icono circular */
+        .icon {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.45s;
+            background: #f0f2f7;
+            border: 2px solid #eef0f6;
+        }
+
+        .show .icon {
+            animation: pop 0.6s ease;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.6) rotate(-15deg);
+            }
+
+            70% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .icon svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        /* Contenido de texto */
+        .content {
+            flex: 1;
+        }
+
+        .content strong {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #001048;
+            display: block;
+            margin-bottom: 4px;
+            
+        }
+
+        .content p {
+            font-size: 0.9rem;
+            color: #4a5a7a;
+            line-height: 1.7;
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .content p strong {
+            display: inline;
+            color: #001048;
+            font-weight: 600;
+        }
+
+        /* Colores por tarjeta */
+        .info-item:nth-child(1) .icon {
+            background: rgba(34, 197, 94, 0.10);
+            border-color: #22c55e;
+        }
+
+        .info-item:nth-child(1) .icon svg {
+            fill: #22c55e;
+        }
+
+        .info-item:nth-child(2) .icon {
+            background: rgba(59, 130, 246, 0.10);
+            border-color: #3b82f6;
+        }
+
+        .info-item:nth-child(2) .icon svg {
+            fill: #3b82f6;
+        }
+
+        .info-item:nth-child(3) .icon {
+            background: rgba(245, 158, 11, 0.10);
+            border-color: #f59e0b;
+        }
+
+        .info-item:nth-child(3) .icon svg {
+            fill: #f59e0b;
+        }
+
+        .info-item:nth-child(4) .icon {
+            background: rgba(139, 92, 246, 0.10);
+            border-color: #8b5cf6;
+        }
+
+        .info-item:nth-child(4) .icon svg {
+            fill: #8b5cf6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 28px 18px 24px;
+                border-radius: 18px;
+            }
+
+            .titulo h1 {
+                font-size: 1.3rem;
+            }
+
+            .info-item {
+                flex-direction: column !important;
+                gap: 16px;
+                text-align: center;
+                margin: 35px 0;
+            }
+
+            .icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .icon svg {
+                width: 44px;
+                height: 44px;
+            }
+
+            .left {
+                transform: translateX(-60px);
+            }
+
+            .right {
+                transform: translateX(60px);
+            }
+
+            .content strong {
+                font-size: 1rem;
+            }
+
+            .content p {
+                font-size: 0.82rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 16px 12px 18px;
+            }
+
+            .titulo h1 {
+                font-size: 1.1rem;
+            }
+
+            .icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .icon svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .left {
+                transform: translateX(-40px);
+            }
+
+            .right {
+                transform: translateX(40px);
+            }
+
+            .content p {
+                font-size: 0.75rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f0f2f7;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c8d0df;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3348A4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="titulo">
+
+            <div class="line"></div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- PREGUNTAS CON REVEAL -->
+        <!-- ============================================ -->
+
+        <!-- ¿Cómo se mide? -->
+        <div class="info-item left reveal">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                </svg>
+            </div>
+            <div class="content">
+                <strong>¿Cómo se mide?</strong>
+                <p>
+                    Los indicadores sociales y
+                    económicos son características poblaciones
+                    y muchos de ellos hay que hacerlas a través
+                    de metodologías estadísticas como el
+                    muestreo y por medio de encuestas.
+                    Porque los fenómenos sociales son muy
+                    dispersos. Los censos son muy costosos.
+            </div>
+        </div>
+
+        <!-- ¿Por qué se mide? -->
+        <div class="info-item right reveal">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+            </div>
+            <div class="content">
+                <strong>¿Por qué se mide?</strong>
+                <p>
+                    Porque la medición
+                    económica y social son las herramientas
+                    que el estado tiene para generar
+                    programas, políticas públicas para el
+                    bienestar de todos los colombianos. </p>
+            </div>
+        </div>
+
+        <!-- ¿Para qué se mide? -->
+        <div class="info-item left reveal">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                </svg>
+            </div>
+            <div class="content">
+                <strong>¿Para qué se mide?</strong>
+                <p>
+                    Las mediciones están
+                    enfocadas para identificar los fenómenos
+                    de interés del estado primero para
+                    garantizar los derechos de los colombianos
+                    y asegurar su bienestar. Cómo esta la
+                    población, las empresas. Cómo garantizo
+                    mis recursos, la constitución.
+                </p>
+            </div>
+        </div>
+
+        <!-- ¿Qué decisiones puedo tomar con los indicadores que mido? -->
+        <div class="info-item right reveal">
+            <div class="icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+            </div>
+            <div class="content">
+                <strong>¿Qué decisiones puedo tomar con los indicadores que mido?</strong>
+                <p>
+                    Inversión social,
+                    equidad y soberanía.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================
+        // INTERSECTION OBSERVER - REVEAL AL HACER SCROLL
+        // ============================================
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.35
+        });
+
+        document.querySelectorAll('.reveal').forEach(item => {
+            observer.observe(item);
+        });
+
+        console.log('Medición Económica y Social - Reveal con SVG');
+        console.log('Paleta: #001048 / #3348A4');
+        console.log('4 preguntas con animación al hacer scroll');
+    </script>
+
+</body>
+
+</html>
