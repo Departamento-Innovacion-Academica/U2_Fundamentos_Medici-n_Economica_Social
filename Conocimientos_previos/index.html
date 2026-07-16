@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flash Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================
+       ESTILOS FLASH CARDS 2x2 - FUENTE POPPINS
+       PALETA: #001048, #3348A4 y #FFFFFF
+       ============================================ */
+
+    :root {
+      --primary: #001048;
+      --secondary: #3348A4;
+      --white: #ffffff;
+      --gray-light: #f5f6fa;
+      --gray-mid: #a0a0b8;
+      --gray-dark: #555570;
+      --shadow: rgba(0, 0, 0, 0.12);
+      --card-radius: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      height: 100%;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== CONTADOR CON INSTRUCCIÓN ALINEADA A LA DERECHA ===== */
+    .counter-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--secondary);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .counter-wrapper .counter {
+      display: inline-block;
+      background: rgba(51, 72, 164, 0.08);
+      color: var(--primary);
+      padding: 0.4rem 1.8rem;
+      border-radius: 20px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      border: 1px solid rgba(51, 72, 164, 0.15);
+    }
+
+    .counter-wrapper .counter span {
+      color: var(--secondary);
+    }
+
+    .counter-wrapper .instruction {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--gray-dark);
+      letter-spacing: 0.02em;
+      text-align: right;
+      padding: 0.3rem 0;
+    }
+
+    .counter-wrapper .instruction .click-icon {
+      display: inline-block;
+      margin-right: 0.3rem;
+    }
+
+    /* ===== GRID DE TARJETAS ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .flash-card {
+      perspective: 1000px;
+      cursor: pointer;
+      min-height: 0;
+      height: 100%;
+      max-height: 420px;
+    }
+
+    .flash-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+
+    .flash-card.flipped .flash-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flash-card-front,
+    .flash-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: var(--card-radius);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 20px var(--shadow);
+      transition: box-shadow 0.3s ease;
+      background: var(--white);
+      border: 3px solid var(--secondary);
+      overflow: hidden;
+    }
+
+    .flash-card:hover .flash-card-front,
+    .flash-card:hover .flash-card-back {
+      box-shadow: 0 8px 40px rgba(0, 16, 72, 0.2);
+    }
+
+    /* ===== FRENTE ===== */
+    .flash-card-front {
+      transform: rotateY(0deg);
+    }
+
+    .flash-card-front .card-icon {
+      font-size: 4rem;
+      margin-bottom: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .flash-card-front .card-number {
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+      background: var(--secondary);
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    .flash-card-front .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    .flash-card-front .card-hint {
+      position: absolute;
+      bottom: 0.8rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--gray-mid);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--gray-light);
+      padding: 0.25rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(51, 72, 164, 0.06);
+      flex-shrink: 0;
+    }
+
+    .flash-card-front .card-hint::before {
+      content: '🔄 ';
+    }
+
+    /* ===== RESPALDO ===== */
+    .flash-card-back {
+      transform: rotateY(180deg);
+      justify-content: flex-start;
+      padding: 1.8rem;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .flash-card-back .back-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-bottom: 2px solid rgba(51, 72, 164, 0.12);
+      padding-bottom: 0.5rem;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .flash-card-back .back-content {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      line-height: 1.6;
+      color: #1a1a2e;
+      flex: 1;
+      width: 100%;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .flash-card-back .back-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .flash-card-back .back-content::-webkit-scrollbar-track {
+      background: #f0f0f5;
+      border-radius: 10px;
+    }
+    .flash-card-back .back-content::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 10px;
+    }
+
+    .flash-card-back .back-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .flash-card-back .back-content ul li {
+      padding: 0.3rem 0 0.3rem 1.2rem;
+      position: relative;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #2a2a3e;
+    }
+
+    .flash-card-back .back-content ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+      font-weight: 700;
+    }
+
+    .flash-card-back .back-content p {
+      margin-bottom: 0.3rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #2a2a3e;
+    }
+
+    .flash-card-back .back-content strong {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    .flash-card-back .back-footer {
+      margin-top: 0.6rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(0, 16, 72, 0.06);
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: var(--gray-mid);
+      text-align: center;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+        justify-content: flex-start;
+        padding-top: 1.5rem;
+      }
+
+      .container {
+        max-height: none;
+        height: auto;
+      }
+
+      .counter-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.3rem;
+      }
+
+      .counter-wrapper .instruction {
+        text-align: center;
+        font-size: 0.85rem;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        flex: none;
+      }
+
+      .flash-card {
+        max-height: 340px;
+        height: 340px;
+      }
+
+      .flash-card-front .card-title {
+        font-size: 1.4rem;
+      }
+      .flash-card-front .card-icon {
+        font-size: 3rem;
+      }
+      .flash-card-back .back-content {
+        font-size: 0.85rem;
+      }
+      .flash-card-back .back-content ul li {
+        font-size: 0.82rem;
+        padding: 0.25rem 0 0.25rem 1rem;
+      }
+      .flash-card-back .back-content p {
+        font-size: 0.82rem;
+      }
+      .flash-card-back {
+        padding: 1.2rem;
+      }
+      .flash-card-back .back-title {
+        font-size: 0.9rem;
+      }
+      .counter-wrapper .counter {
+        font-size: 0.9rem;
+        padding: 0.3rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .flash-card {
+        max-height: 320px;
+        height: 320px;
+      }
+
+      .flash-card-front .card-title {
+        font-size: 1.5rem;
+      }
+      .flash-card-front .card-icon {
+        font-size: 3.2rem;
+      }
+      .counter-wrapper .counter {
+        font-size: 0.85rem;
+        padding: 0.3rem 1rem;
+      }
+      .counter-wrapper .instruction {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-height: 700px) {
+      .flash-card {
+        max-height: 340px;
+      }
+      .flash-card-front .card-icon {
+        font-size: 3rem;
+      }
+      .flash-card-front .card-title {
+        font-size: 1.4rem;
+      }
+      .flash-card-back .back-content {
+        font-size: 0.82rem;
+      }
+      .flash-card-back .back-content ul li {
+        font-size: 0.8rem;
+        padding: 0.2rem 0 0.2rem 1rem;
+      }
+      .counter-wrapper {
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+      }
+      .counter-wrapper .counter {
+        font-size: 0.85rem;
+        padding: 0.25rem 1.2rem;
+      }
+      .counter-wrapper .instruction {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-height: 600px) {
+      .flash-card {
+        max-height: 280px;
+      }
+      .flash-card-front .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.4rem;
+      }
+      .flash-card-front .card-title {
+        font-size: 1.2rem;
+      }
+      .flash-card-back .back-content {
+        font-size: 0.75rem;
+      }
+      .flash-card-back .back-content ul li {
+        font-size: 0.72rem;
+        padding: 0.15rem 0 0.15rem 1rem;
+      }
+      .flash-card-back .back-title {
+        font-size: 0.8rem;
+        margin-bottom: 0.3rem;
+        padding-bottom: 0.3rem;
+      }
+      .flash-card-back .back-footer {
+        font-size: 0.55rem;
+        margin-top: 0.3rem;
+        padding-top: 0.3rem;
+      }
+      .flash-card-front .card-hint {
+        font-size: 0.55rem;
+        bottom: 0.5rem;
+        padding: 0.15rem 0.8rem;
+      }
+      .flash-card-back {
+        padding: 1rem;
+      }
+      .flash-card-front .card-number {
+        font-size: 0.6rem;
+        padding: 0.1rem 0.6rem;
+        top: 0.5rem;
+        right: 0.7rem;
+      }
+      .counter-wrapper .counter {
+        font-size: 0.75rem;
+        padding: 0.2rem 1rem;
+      }
+      .counter-wrapper .instruction {
+        font-size: 0.7rem;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f0f0f5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4a62c9;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .flash-card {
+      animation: fadeInUp 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .flash-card:nth-child(1) {
+      animation-delay: 0.05s;
+    }
+    .flash-card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    .flash-card:nth-child(3) {
+      animation-delay: 0.15s;
+    }
+    .flash-card:nth-child(4) {
+      animation-delay: 0.2s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ===== CONTADOR + INSTRUCCIÓN ===== -->
+    <div class="counter-wrapper">
+      <span ></span></span>
+      <span class="instruction">
+        <span class="click-icon"></span> Haga clic sobre la Tarjeta para ampliar la información.
+      </span>
+    </div>
+
+    <!-- ===== GRID DE TARJETAS ===== -->
+    <div class="cards-grid" id="cardsGrid">
+    </div>
+
+  </div>
+
+  <script>
+    const cardsData = [{
+      id: 1,
+      icon: '📊',
+      title: 'Fundamentos económicos',
+      content: `
+        <ul>
+          <li><strong>Microeconomía y macroeconomía:</strong> Nociones básicas de ambas ramas.</li>
+          <li><strong>Sistema económico:</strong> Comprensión de su funcionamiento y principales actores: <strong>hogares, empresas, gobierno y sector externo</strong>.</li>
+          <li><strong>Conceptos clave:</strong> Familiaridad con <strong>crecimiento económico, inflación y desempleo</strong>.</li>
+        </ul>
+      `
+    }, {
+      id: 2,
+      icon: '📈',
+      title: 'Estadística y análisis cuantitativo',
+      content: `
+        <ul>
+          <li><strong>Estadística descriptiva:</strong> Medidas de tendencia central (<strong>media, mediana, moda</strong>), medidas de dispersión y distribuciones de frecuencia.</li>
+          <li><strong>Cálculo e interpretación:</strong> Capacidad para calcular e interpretar <strong>razones, tasas, proporciones y porcentajes</strong>.</li>
+          <li><strong>Series de tiempo:</strong> Comprensión básica y variaciones porcentuales.</li>
+          <li><strong>Visualización:</strong> Habilidad para leer, interpretar y construir <strong>gráficos y tablas estadísticas</strong>.</li>
+        </ul>
+      `
+    }, {
+      id: 3,
+      icon: '🔍',
+      title: 'Manejo de información',
+      content: `
+        <ul>
+          <li><strong>Búsqueda digital:</strong> Habilidades básicas para buscar y evaluar información en fuentes digitales confiables.</li>
+          <li><strong>Portales oficiales:</strong> Conocimiento de portales como <strong>DANE, Banco Mundial, CEPAL y OCDE</strong>.</li>
+          <li><strong>Citas y referencias:</strong> Capacidad para identificar y citar fuentes de información estadística.</li>
+        </ul>
+      `
+    }, {
+      id: 4,
+      icon: '🧠',
+      title: 'Comprensión lectora y pensamiento crítico',
+      content: `
+        <ul>
+          <li><strong>Análisis de textos:</strong> Habilidad para analizar e interpretar textos académicos y técnicos.</li>
+          <li><strong>Relación teoría-práctica:</strong> Capacidad para relacionar conceptos teóricos con situaciones económicas y sociales concretas.</li>
+          <li><strong>Reflexión crítica:</strong> Disposición para cuestionar y reflexionar críticamente sobre la información estadística disponible.</li>
+        </ul>
+      `
+    }];
+
+    function renderCards() {
+      const grid = document.getElementById('cardsGrid');
+      grid.innerHTML = '';
+
+      cardsData.forEach((card, index) => {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'flash-card';
+        cardDiv.dataset.index = index;
+
+        cardDiv.innerHTML = `
+          <div class="flash-card-inner">
+            <div class="flash-card-front">
+              <span class="card-number">${String(card.id).padStart(2, '0')}</span>
+              <div class="card-icon">${card.icon}</div>
+              <div class="card-title">${card.title}</div>
+              <span class="card-hint">Haz clic para ver</span>
+            </div>
+            <div class="flash-card-back">
+              <div class="back-title">📖 ${card.title}</div>
+              <div class="back-content">${card.content}</div>
+              <div class="back-footer">Tarjeta ${card.id} de ${cardsData.length}</div>
+            </div>
+          </div>
+        `;
+
+        cardDiv.addEventListener('click', function(e) {
+          this.classList.toggle('flipped');
+        });
+
+        grid.appendChild(cardDiv);
+      });
+
+      document.getElementById('cardCount').textContent = cardsData.length;
+    }
+
+    renderCards();
+  </script>
+</body>
+</html>

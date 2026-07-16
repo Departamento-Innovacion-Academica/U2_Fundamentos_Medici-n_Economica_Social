@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resultados de Aprendizaje - Acordeón</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f2f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 900px;
+            max-width: 95%;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 44px 44px 40px;
+            box-shadow: 0 8px 40px rgba(0, 16, 72, 0.10);
+        }
+
+        /* Instrucción - Alineada a la derecha */
+        .instruccion {
+            font-size: 0.85rem;
+            color: #6b7a9f;
+            font-weight: 400;
+            margin-bottom: 20px;
+            text-align: right;
+            letter-spacing: 0.2px;
+        }
+
+        .instruccion span {
+            color: #3348A4;
+            font-weight: 500;
+        }
+
+        /* Acordeón */
+        .acordeon {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .acordeon-item {
+            border: 1.5px solid #eef0f6;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        .acordeon-item:hover {
+            border-color: #3348A4;
+        }
+
+        .acordeon-item.abierto {
+            border-color: #3348A4;
+            box-shadow: 0 4px 20px rgba(51, 72, 164, 0.06);
+        }
+
+        .acordeon-header {
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafbff;
+            user-select: none;
+        }
+
+        .acordeon-header:hover {
+            background: rgba(51, 72, 164, 0.04);
+        }
+
+        .acordeon-item.abierto .acordeon-header {
+            background: rgba(51, 72, 164, 0.04);
+        }
+
+        .acordeon-header .titulo-item {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #001048;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .acordeon-header .titulo-item .numero {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: #3348A4;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Botón + / - a la derecha */
+        .acordeon-header .toggle-btn {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #3348A4;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            flex-shrink: 0;
+            width: 28px;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .acordeon-item.abierto .toggle-btn {
+            transform: rotate(45deg);
+            color: #001048;
+        }
+
+        .acordeon-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), padding 0.3s ease;
+            padding: 0 18px;
+            background: #ffffff;
+        }
+
+        .acordeon-item.abierto .acordeon-body {
+            max-height: 300px;
+            padding: 14px 18px 18px;
+        }
+
+        .acordeon-body p {
+            font-size: 0.88rem;
+            color: #4a5a7a;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .acordeon-body p strong {
+            color: #001048;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 820px) {
+            .container {
+                padding: 28px 18px 24px;
+                border-radius: 18px;
+            }
+
+            .instruccion {
+                font-size: 0.75rem;
+                text-align: left;
+            }
+
+            .acordeon-header {
+                padding: 12px 14px;
+            }
+
+            .acordeon-header .titulo-item {
+                font-size: 0.82rem;
+            }
+
+            .acordeon-header .titulo-item .numero {
+                width: 22px;
+                height: 22px;
+                font-size: 0.6rem;
+            }
+
+            .acordeon-body p {
+                font-size: 0.8rem;
+            }
+
+            .acordeon-item.abierto .acordeon-body {
+                padding: 12px 14px 14px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 16px 12px 18px;
+            }
+
+            .instruccion {
+                font-size: 0.7rem;
+            }
+
+            .acordeon-header {
+                padding: 10px 12px;
+            }
+
+            .acordeon-header .titulo-item {
+                font-size: 0.75rem;
+                gap: 8px;
+            }
+
+            .acordeon-header .titulo-item .numero {
+                width: 20px;
+                height: 20px;
+                font-size: 0.55rem;
+            }
+
+            .acordeon-header .toggle-btn {
+                font-size: 1.1rem;
+                width: 24px;
+            }
+
+            .acordeon-body p {
+                font-size: 0.75rem;
+            }
+
+            .acordeon-item.abierto .acordeon-body {
+                padding: 10px 12px 12px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0f2f7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c8d0df;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3348A4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Instrucción - Alineada a la derecha -->
+        <div class="instruccion">
+            <span>Haga clic sobre el símbolo (+)</span> para ampliar la información.
+        </div>
+
+        <div class="acordeon" id="acordeon">
+
+            <!-- Punto 1 -->
+            <div class="acordeon-item abierto">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">1</span>
+                        Comprender el concepto de indicador
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Comprender</strong> el concepto de indicador económico y social, sus características, tipología y función dentro del análisis económico y territorial.</p>
+                </div>
+            </div>
+
+            <!-- Punto 2 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">2</span>
+                        Distinguir entre datos, información e indicadores
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Distinguir</strong> entre datos, información e indicadores, reconociendo el papel de cada uno en los procesos de medición y toma de decisiones.</p>
+                </div>
+            </div>
+
+            <!-- Punto 3 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">3</span>
+                        Identificar los tipos de indicadores
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Identificar</strong> los principales tipos de indicadores utilizados en el análisis económico y social: económicos, sociales, ambientales, demográficos, simples y compuestos.</p>
+                </div>
+            </div>
+
+            <!-- Punto 4 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">4</span>
+                        Entender los fundamentos metodológicos
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Entender</strong> los fundamentos conceptuales y metodológicos que sustentan la construcción y selección de indicadores.</p>
+                </div>
+            </div>
+
+            <!-- Punto 5 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">5</span>
+                        Analizar críticamente la medición del desarrollo
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Analizar críticamente</strong> los debates actuales sobre la medición del desarrollo y el bienestar, más allá del PIB como indicador único.</p>
+                </div>
+            </div>
+
+            <!-- Punto 6 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">6</span>
+                        Reconocer y aplicar criterios de calidad
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Reconocer y aplicar</strong> los criterios de selección y calidad estadística en la evaluación de indicadores.</p>
+                </div>
+            </div>
+
+            <!-- Punto 7 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">7</span>
+                        Reconocer los métodos de producción estadística
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Reconocer</strong> los métodos de producción estadística: censos, encuestas y registros administrativos.</p>
+                </div>
+            </div>
+
+            <!-- Punto 8 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">8</span>
+                        Analizar la distribución de un indicador
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Analizar</strong> la distribución de un indicador.</p>
+                </div>
+            </div>
+
+            <!-- Punto 9 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">9</span>
+                        Desarrollar una actitud crítica y reflexiva
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Desarrollar</strong> una actitud crítica y reflexiva frente al uso e interpretación de indicadores estadísticos en contextos económicos y sociales.</p>
+                </div>
+            </div>
+
+            <!-- Punto 10 -->
+            <div class="acordeon-item">
+                <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                    <div class="titulo-item">
+                        <span class="numero">10</span>
+                        Asumir una postura ética
+                    </div>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="acordeon-body">
+                    <p><strong>Asumir</strong> una postura ética frente al uso responsable de la información estadística, respetando las fuentes y reconociendo la autoría de los datos.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // --------------------------------------------------------------
+        // ACORDEÓN CON + / -
+        // --------------------------------------------------------------
+
+        function toggleAcordeon(header) {
+            const item = header.closest('.acordeon-item');
+            const isOpen = item.classList.contains('abierto');
+            const btn = item.querySelector('.toggle-btn');
+
+            // Cerrar todos
+            document.querySelectorAll('.acordeon-item').forEach(el => {
+                el.classList.remove('abierto');
+                const b = el.querySelector('.toggle-btn');
+                if (b) b.textContent = '+';
+            });
+
+            // Si no estaba abierto, abrirlo
+            if (!isOpen) {
+                item.classList.add('abierto');
+                if (btn) btn.textContent = '−';
+            }
+        }
+
+        console.log('Resultados de aprendizaje - Acordeón con instrucción a la derecha');
+        console.log('Paleta: #001048 / #3348A4');
+    </script>
+
+</body>
+</html>
