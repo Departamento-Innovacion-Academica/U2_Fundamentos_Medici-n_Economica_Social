@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #001048;
+            background: #f0f2f7;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -28,7 +28,7 @@
             background: #ffffff;
             border-radius: 28px;
             padding: 44px 44px 40px;
-            box-shadow: 0 8px 40px rgba(0, 16, 72, 0.30);
+            box-shadow: 0 8px 40px rgba(0, 16, 72, 0.10);
         }
 
         .header {
@@ -74,7 +74,6 @@
             font-weight: 700;
         }
 
-        /* Barra de progreso */
         .progress-bar-wrapper {
             width: 100%;
             height: 4px;
@@ -92,12 +91,11 @@
             transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Tarjeta de pregunta - FONDO OSCURO */
         .question-card {
-            background: #001048;
+            background: #fafbff;
             border-radius: 16px;
             padding: 28px 30px;
-            border: 1px solid #3348A4;
+            border: 1px solid #eef0f6;
             min-height: 280px;
             display: flex;
             flex-direction: column;
@@ -116,8 +114,8 @@
             display: inline-block;
             font-size: 0.6rem;
             font-weight: 600;
-            color: #001048;
-            background: #FFCC29;
+            color: #ffffff;
+            background: #3348A4;
             padding: 2px 14px;
             border-radius: 20px;
             margin-bottom: 10px;
@@ -125,14 +123,13 @@
         }
 
         .question-text {
-            color: #ffffff;
+            color: #001048;
             font-size: 1.1rem;
             font-weight: 600;
             line-height: 1.6;
             margin-bottom: 20px;
         }
 
-        /* Opciones - FONDO OSCURO */
         .options {
             display: flex;
             flex-direction: column;
@@ -144,13 +141,13 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            background: #ffffff;
+            border: 1.5px solid #e4e8f0;
             border-radius: 12px;
             padding: 12px 18px;
             cursor: pointer;
             transition: all 0.25s ease;
-            color: rgba(255, 255, 255, 0.9);
+            color: #1a264a;
             font-weight: 450;
             line-height: 1.5;
             font-size: 0.92rem;
@@ -158,7 +155,7 @@
 
         .option-label:hover:not(.disabled) {
             border-color: #3348A4;
-            background: rgba(51, 72, 164, 0.15);
+            background: #f8f9ff;
             transform: translateX(3px);
         }
 
@@ -167,7 +164,7 @@
             width: 18px;
             height: 18px;
             min-width: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid #c8d0df;
             border-radius: 50%;
             position: relative;
             cursor: pointer;
@@ -176,9 +173,9 @@
         }
 
         .option-label input[type="radio"]:checked {
-            border-color: #FFCC29;
-            background: #FFCC29;
-            box-shadow: 0 0 16px rgba(255, 204, 41, 0.20);
+            border-color: #3348A4;
+            background: #3348A4;
+            box-shadow: 0 0 16px rgba(51, 72, 164, 0.20);
         }
 
         .option-label input[type="radio"]:checked::after {
@@ -189,26 +186,25 @@
             transform: translate(-50%, -50%);
             width: 8px;
             height: 8px;
-            background: #001048;
+            background: #ffffff;
             border-radius: 50%;
         }
 
         .option-label .letter {
             font-weight: 600;
-            color: #FFCC29;
+            color: #3348A4;
             font-size: 0.8rem;
             min-width: 22px;
         }
 
-        /* Feedback - FONDO OSCURO */
         .feedback {
             margin-top: 18px;
             padding: 16px 20px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
+            background: #f8faff;
             border-left: 4px solid #3348A4;
             display: none;
-            color: rgba(255, 255, 255, 0.9);
+            color: #1a264a;
             font-size: 0.9rem;
             line-height: 1.6;
         }
@@ -220,12 +216,12 @@
 
         .feedback.correct {
             border-left-color: #22c55e;
-            background: rgba(34, 197, 94, 0.10);
+            background: #f0fdf4;
         }
 
         .feedback.incorrect {
             border-left-color: #ef4444;
-            background: rgba(239, 68, 68, 0.10);
+            background: #fef2f2;
         }
 
         .feedback .feedback-label {
@@ -244,7 +240,6 @@
             }
         }
 
-        /* Botones */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -273,59 +268,58 @@
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            color: #ffffff;
-            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            background: #f0f2f7;
+            color: #3348A4;
+            border: 1.5px solid transparent;
         }
 
         .btn-secondary:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.15);
+            background: #e4e8f2;
             transform: translateY(-2px);
         }
 
         .btn-primary {
-            background: #FFCC29;
-            color: #001048;
-            border: 1.5px solid #FFCC29;
+            background: #001048;
+            color: #ffffff;
+            border: 1.5px solid #001048;
         }
 
         .btn-primary:hover:not(:disabled) {
-            background: #e6b820;
-            border-color: #e6b820;
-            box-shadow: 0 4px 16px rgba(255, 204, 41, 0.25);
+            background: #001a5e;
+            border-color: #001a5e;
+            box-shadow: 0 4px 16px rgba(0, 16, 72, 0.15);
             transform: translateY(-2px);
         }
 
         .btn-success {
-            background: #FFCC29;
-            color: #001048;
-            border: 1.5px solid #FFCC29;
+            background: #3348A4;
+            color: #ffffff;
+            border: 1.5px solid #3348A4;
         }
 
         .btn-success:hover:not(:disabled) {
-            background: #e6b820;
-            border-color: #e6b820;
-            box-shadow: 0 4px 20px rgba(255, 204, 41, 0.30);
+            background: #2a3d8f;
+            border-color: #2a3d8f;
+            box-shadow: 0 4px 20px rgba(51, 72, 164, 0.25);
             transform: translateY(-2px);
         }
 
         .btn-reset {
             background: transparent;
-            color: rgba(255, 255, 255, 0.6);
-            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            color: #6b7a9f;
+            border: 1.5px solid #e4e8f0;
         }
 
         .btn-reset:hover {
-            border-color: #FFCC29;
-            color: #FFCC29;
-            background: rgba(255, 204, 41, 0.06);
+            border-color: #3348A4;
+            color: #3348A4;
+            background: rgba(51, 72, 164, 0.04);
             transform: translateY(-2px);
         }
 
-        /* Estados de opción - FONDO OSCURO */
         .option-label.correct {
             border-color: #22c55e !important;
-            background: rgba(34, 197, 94, 0.12) !important;
+            background: #f0fdf4 !important;
         }
 
         .option-label.correct input[type="radio"] {
@@ -339,7 +333,7 @@
 
         .option-label.wrong {
             border-color: #ef4444 !important;
-            background: rgba(239, 68, 68, 0.12) !important;
+            background: #fef2f2 !important;
         }
 
         .option-label.wrong input[type="radio"] {
@@ -358,15 +352,10 @@
         }
 
         .option-label.selected {
-            border-color: #FFCC29;
-            background: rgba(255, 204, 41, 0.06);
+            border-color: #3348A4;
+            background: #f5f7ff;
         }
 
-        .option-label.selected .letter {
-            color: #FFCC29;
-        }
-
-        /* Resultados finales - FONDO OSCURO */
         .resultados {
             display: none;
             text-align: center;
@@ -381,31 +370,30 @@
         .resultados .score {
             font-size: 3.5rem;
             font-weight: 800;
-            color: #FFCC29;
+            color: #001048;
         }
 
         .resultados .score .total {
             font-size: 1.5rem;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.4);
+            color: #6b7a9f;
         }
 
         .resultados .label {
             font-size: 1.1rem;
-            color: #FFCC29;
+            color: #3348A4;
             font-weight: 600;
             margin-bottom: 4px;
         }
 
         .resultados .message {
             font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: #4a5a7a;
             margin-top: 8px;
             padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.05);
+            background: #f0f2f7;
             border-radius: 12px;
             display: inline-block;
-            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .resultados .stats {
@@ -422,7 +410,7 @@
         .resultados .stats .stat-number {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #ffffff;
+            color: #001048;
         }
 
         .resultados .stats .stat-number.correct {
@@ -435,7 +423,7 @@
 
         .resultados .stats .stat-label {
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.4);
+            color: #6b7a9f;
             font-weight: 500;
         }
 
@@ -451,7 +439,6 @@
             min-width: 140px;
         }
 
-        /* Ocultar elementos cuando se muestran resultados */
         .hide-when-results {
             display: block;
         }
@@ -460,7 +447,6 @@
             display: none;
         }
 
-        /* Responsive */
         @media (max-width: 640px) {
             .container {
                 padding: 24px 16px 20px;
@@ -531,14 +517,14 @@
             width: 5px;
         }
         ::-webkit-scrollbar-track {
-            background: #001048;
+            background: #f0f2f7;
         }
         ::-webkit-scrollbar-thumb {
-            background: #3348A4;
+            background: #c8d0df;
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #FFCC29;
+            background: #3348A4;
         }
     </style>
 </head>
@@ -546,7 +532,6 @@
 
     <div class="container">
 
-        <!-- Header -->
         <div class="header">
             <div class="titulo">
                 <h1>Ejercicios de Repaso 2</h1>
@@ -557,12 +542,10 @@
             </div>
         </div>
 
-        <!-- Barra de progreso -->
         <div class="progress-bar-wrapper">
             <div class="progress-bar" id="progressBar" style="width: 25%"></div>
         </div>
 
-        <!-- Tarjeta de pregunta -->
         <div class="question-card hide-when-results" id="questionCard">
             <div class="question-type" id="questionType">Verdadero o Falso</div>
             <div class="question-number" id="qNumber">Ejercicio 1</div>
@@ -574,13 +557,11 @@
             </div>
         </div>
 
-        <!-- Navegación -->
         <div class="nav-buttons hide-when-results" id="navButtons">
             <button class="btn btn-secondary" id="prevBtn" disabled>← Anterior</button>
             <button class="btn btn-primary" id="nextBtn">Siguiente →</button>
         </div>
 
-        <!-- Resultados -->
         <div class="resultados" id="resultados">
             <div class="label">📊 Resultado del Repaso</div>
             <div class="score">
@@ -598,12 +579,12 @@
                     <div class="stat-label">❌ Incorrectas</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number" id="percentageDisplay" style="color:#FFCC29;">0%</div>
+                    <div class="stat-number" id="percentageDisplay" style="color:#3348A4;">0%</div>
                     <div class="stat-label">🎯 Precisión</div>
                 </div>
             </div>
             <div class="actions">
-                <button class="btn btn-success" id="revisarBtn">🔍 Revisar respuestas</button>
+                <button class="btn btn-primary" id="revisarBtn">🔍 Revisar respuestas</button>
                 <button class="btn btn-reset" id="reiniciarBtn">🔄 Reintentar</button>
             </div>
         </div>
@@ -611,10 +592,6 @@
     </div>
 
     <script>
-        // --------------------------------------------------------------
-        // BASE DE DATOS DE PREGUNTAS
-        // --------------------------------------------------------------
-
         const questions = [{
             id: 1,
             type: 'Verdadero o Falso',
@@ -660,10 +637,6 @@
             feedback: 'La GEIH es una encuesta continua del DANE aplicada mensualmente, que cubre más de 230.000 hogares en 32 ciudades capitales y más de 400 municipios (DANE, 2021).'
         }];
 
-        // --------------------------------------------------------------
-        // ESTADO
-        // --------------------------------------------------------------
-
         let currentIndex = 0;
         let answered = false;
         let selectedOption = null;
@@ -691,10 +664,6 @@
         const resultMessage = document.getElementById('resultMessage');
         const revisarBtn = document.getElementById('revisarBtn');
         const reiniciarBtn = document.getElementById('reiniciarBtn');
-
-        // --------------------------------------------------------------
-        // RENDER
-        // --------------------------------------------------------------
 
         function renderQuestion(index) {
             const q = questions[index];
@@ -781,8 +750,6 @@
                     if (radio) radio.disabled = true;
                     if (idx === qData.correctIndex) {
                         label.classList.add('correct');
-                    } else if (idx !== qData.correctIndex && !wasCorrect) {
-                        // No sabemos cuál seleccionó, marcamos la correcta
                     }
                 });
                 feedbackLabel.textContent = wasCorrect ? '✅' : '❌';
@@ -791,10 +758,6 @@
                 answered = true;
             }
         }
-
-        // --------------------------------------------------------------
-        // VALIDAR
-        // --------------------------------------------------------------
 
         function validateAndShowFeedback() {
             if (answered) return true;
@@ -829,10 +792,6 @@
             return true;
         }
 
-        // --------------------------------------------------------------
-        // RESULTADOS
-        // --------------------------------------------------------------
-
         function showResults() {
             completed = true;
             const total = questions.length;
@@ -860,10 +819,6 @@
             });
             resultados.classList.add('show');
         }
-
-        // --------------------------------------------------------------
-        // NAVEGACIÓN
-        // --------------------------------------------------------------
 
         function goToNext() {
             if (!answered) {
@@ -915,10 +870,6 @@
             nextBtn.className = 'btn btn-primary';
         }
 
-        // --------------------------------------------------------------
-        // EVENTOS
-        // --------------------------------------------------------------
-
         nextBtn.addEventListener('click', goToNext);
         prevBtn.addEventListener('click', goToPrev);
         reiniciarBtn.addEventListener('click', resetQuiz);
@@ -946,14 +897,10 @@
             }
         });
 
-        // --------------------------------------------------------------
-        // INICIO
-        // --------------------------------------------------------------
-
         renderQuestion(0);
 
         console.log('Ejercicios de Repaso 2 - Indicadores Sociales');
-        console.log('Paleta: #001048 / #3348A4 / #FFCC29');
+        console.log('Paleta: #001048 / #3348A4');
         console.log('4 ejercicios con Verdadero/Falso y Selección Múltiple');
     </script>
 
